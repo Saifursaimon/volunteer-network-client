@@ -4,6 +4,8 @@ import Main from './Layout/Main';
 import Home from './Compnents/Home/Home';
 import Login from './Compnents/Login/Login';
 import Register from './Compnents/Register/Register';
+import PrivateRoute from './Routes/PrivateRoute';
+import Events from './Events/Events';
 
 function App() {
 
@@ -16,7 +18,7 @@ function App() {
         {
           path:'/',
           element:<Home></Home>,
-          loader: () => fetch('Events.json')
+          loader: () => fetch('http://localhost:5000/charity')
         },
         {
           path:'/login',
@@ -26,6 +28,10 @@ function App() {
           path:'/register',
           element:<Register></Register>
         },
+        {
+          path:'/events',
+          element:<PrivateRoute><Events></Events></PrivateRoute>
+        }
       ]
     }
   ])

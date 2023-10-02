@@ -1,9 +1,8 @@
 import React from 'react';
 
 const Card = ({event}) => {
-   const {img,name,color} = event
-   
-
+   const {_id,img,name,color} = event
+  
     return (
 
       <div style={{backgroundImage:`url(${img})`}} className='bg-cover w-72 h-80 mx-auto relative rounded-b-xl bg-gree'>
