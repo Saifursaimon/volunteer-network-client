@@ -1,7 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import logo from '../../assets/logos/Group 1329.png'
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../Context/AuthProvider';
 const Header = () => {
+
+    const {user,LogOut} = useContext(AuthContext)
+
+    const handleLogOut = (event) => {
+      event.preventDefault()
+
+      LogOut()
+      .then(()=>{})
+      .catch(error => console.log(error))
+
+    } 
 
     const menuItems = 
     <>
@@ -9,14 +21,20 @@ const Header = () => {
         <li><Link to='/' className='font-semibold' >Donation</Link></li>
         <li><Link to='/' className='font-semibold' >Events</Link></li>
         <li><Link to='/' className='font-semibold' >Blog</Link></li>
-        <Link to='/' className='btn btn-primary lg:hidden mt-4'>Register</Link>
-        <Link to='/' className='btn btn-ghost lg:hidden mt-4'>Log in</Link>
+        <Link to='/register' className='btn btn-primary lg:hidden mt-4'>Register</Link>
+        {
+          user?.email ? <Link onClick={handleLogOut} to='/' className='btn btn-ghost lg:hidden mt-4'>Log out</Link> : <Link to='/login' className='btn btn-ghost lg:hidden mt-4'>Log in</Link>
+        }
     </>;
 
     const menuButtons = 
     <>
-        <Link to='/' className='btn btn-primary hidden lg:flex'>Register</Link>
-        <Link to='/' className='btn btn-ghost hidden lg:flex'>Log in</Link>
+        <Link to='/register' className='btn btn-primary hidden lg:flex'>Register</Link>
+        <>
+        {
+          user?.email ? <Link onClick={handleLogOut} to='/' className='btn btn-ghost hidden lg:flex'>Log out</Link> : <Link to='/login' className='btn btn-ghost hidden lg:flex'>Log in</Link>
+        }
+        </>
     </>
 
     return (
